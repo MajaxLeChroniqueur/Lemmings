@@ -89,8 +89,12 @@ namespace SA
             {
                 t_y = curNode.y;
             }
+            else
+            {
+                t_y -= 1;
+            }
 
-            targetNode = nextDown;
+            targetNode = gameManager.GetNode(t_x, t_y);
         }
     }
 }
