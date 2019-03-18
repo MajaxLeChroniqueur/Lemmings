@@ -8,30 +8,35 @@ namespace SA
     {
         bool isInit;
         Node curNode;
-        Node targetNode;
-
-        public bool move;
-        public bool onGround;
-        int airFrame;
-        public int airDeathFrames = 80;
-
-        public int digForwardFrames = 35;
+        Node targetNode;                
+        int airFrame;        
         int df_counter;
         public int digDownFrames = 35;
         int dd_counter;
         bool prevGround;
 
+        [Header("states")]
+        public bool move;
+        public bool onGround;
         public bool isUmbrella;
         public bool isDigForward;
-
         bool movingLeft;
         public Ability curAbility;
+
+        [Header("Ability stats")]
         public float lerpSpeed = .3f;
         public float fallSpeed = 5;
         public float umbrellaSpeed = 0.4f;
         public float dig_down = .2f;
-        
+        public int airDeathFrames = 80;
+        public int digForwardFrames = 35;
+        public float build_Time;
+        public float build_Speed;
+        public int buildAmount = 25;
+        int b_amount;
+        float b_t;
 
+        [Header("References")]
         public SpriteRenderer ren;
         public Animator anim;
         float baseSpeed;
@@ -85,9 +90,73 @@ namespace SA
                     break;
                 case Ability.dead:
                     break;
+                case Ability.builder:
+                    Builder(delta);
+                    break;
+                case Ability.filler:
+                    break;
                 default:
                     break;
             }
+        }
+
+        public bool ChangeAbility(Ability a)
+        {
+            isUmbrella = false;
+
+
+            switch (a)
+            {
+                case Ability.walker:
+                    curAbility = a;
+                    anim.Play("walk");
+                    break;
+                case Ability.stopper:
+                    if (onGround)
+                    {
+                        FindStoppedNodes();
+                        anim.Play("stop");
+                        curAbility = a;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case Ability.umbrella:
+                    isUmbrella = true;
+                    break;
+                case Ability.dig_forward:
+                    isDigForward = true;
+                    df_counter = 0;
+                    break;
+                case Ability.dig_down:
+                    if (onGround)
+                    {
+                        anim.Play("dig_down");
+                        curAbility = a;
+                        dd_counter = 0;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case Ability.dead:
+                    curAbility = a;
+                    break;
+                case Ability.builder:
+                    anim.Play("build");
+                    curAbility = a;
+                    b_amount = 0;
+                    break;
+                case Ability.filler:
+                    curAbility = a;
+                    break;
+                default:
+                    break;
+            }
+            return true;
         }
 
         void Walker(float delta)
@@ -150,57 +219,61 @@ namespace SA
 
         }
 
-        public bool ChangeAbility(Ability a)
+        void Builder(float delta)
         {
-            isUmbrella = false;
-
-
-            switch (a)
+            if (!initLerp)
             {
-                case Ability.walker:
-                    curAbility = a;
-                    anim.Play("walk");
-                    break;
-                case Ability.stopper:
-                    if (onGround)
-                    {
-                        FindStoppedNodes();
-                        anim.Play("stop");
-                        curAbility = a;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                case Ability.umbrella:
-                    isUmbrella = true;
-                    break;
-                case Ability.dig_forward:
-                    isDigForward = true;
-                    df_counter = 0;
-                    break;
-                case Ability.dig_down:
-                    if (onGround)
-                    {
-                        anim.Play("dig_down");
-                        curAbility = a;
-                        dd_counter = 0;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                case Ability.dead:
-                    curAbility = a;
-                    break;
-                default:
-                    break;
-            }
-            return true;
-        }
+                b_t += delta;
+                if (b_t > build_Time)
+                {
+                    b_t = 0;
+                    initLerp = true;
+                    bool interrupt = false;
+                    b_amount++;
 
+                    if(b_amount > buildAmount)
+                    {
+                        interrupt = true;
+                    }
+
+                    int _tx = curNode.x;
+                    int _ty = curNode.y;
+                    _tx = (movingLeft) ? _tx - 1 : _tx + 1;
+                    _ty++;
+
+                    startPos = transform.position;
+                    targetNode = gameManager.GetNode(_tx, _ty);
+
+                    if(targetNode.isEmpty == false || interrupt)
+                    {
+                        ChangeAbility(Ability.walker);
+                        return;
+                    }
+
+                    targetPos = gameManager.GetWorldPosFromNode(targetNode.x, targetNode.y);
+                    float d = Vector3.Distance(startPos, targetPos);
+                    baseSpeed = build_Speed / d;
+
+                    List<Node> canidates = new List<Node>();
+                    for (int i = 0; i < 5; i++)
+                    {
+                        int xx = _tx + i;
+                        Node n = gameManager.GetNode(xx, curNode.y);
+                        if (n.isEmpty == true)
+                        {
+                            canidates.Add(n);
+                        }
+                    }
+
+                    gameManager.AddCanidatesNodesToBuild(canidates);
+                }
+            }
+            else
+            {
+                LerpIntoPosition(delta);
+            }
+        }
+               
         void DiggingDown(float delta)
         {
             if (!initLerp)
@@ -220,7 +293,7 @@ namespace SA
                 }
                 dd_counter++;
 
-                gameManager.AddCanidateNodes(canidates);
+                gameManager.AddCanidateNodesToClear(canidates);
                 Node n = gameManager.GetNode(curNode.x, curNode.y - 1);
                 if(n == null)
                 {
@@ -259,7 +332,7 @@ namespace SA
                 }
                 df_counter++;
 
-                gameManager.AddCanidateNodes(canidates);
+                gameManager.AddCanidateNodesToClear(canidates);
 
                 Node n = gameManager.GetNode(t_x, curNode.y);
                 if (n == null)

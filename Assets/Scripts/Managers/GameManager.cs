@@ -28,11 +28,13 @@ namespace SA
 
         Unit curUnit;
 
+        public Color buildColor = Color.blue;
         public float editRadius = 6;
         public bool overUIElement;
 
         UnitManager unitManager;
         UIManager uIManager;
+        bool applyTexture;
 
         public static GameManager singleton;
 
@@ -76,7 +78,7 @@ namespace SA
 
             textureInstance.Apply();
             Rect rect = new Rect(0, 0, maxX, maxY);
-            levelRenderer.sprite = Sprite.Create(textureInstance, rect, Vector2.zero);
+            levelRenderer.sprite = Sprite.Create(textureInstance, rect, Vector2.zero, 100, 0, SpriteMeshType.FullRect);
         }
 
         void Update()
@@ -87,6 +89,11 @@ namespace SA
             uIManager.Tick();
             HandleUnit();
             ClearListOfPixels();
+            BuildListOfNodes();
+
+            if(applyTexture)
+                textureInstance.Apply();
+
             //HandleMouseInput();
         }
 
@@ -137,12 +144,12 @@ namespace SA
                             if (n == null)
                                 continue;
 
-                            n.isEmpty = true;
-                            textureInstance.SetPixel(t_x, t_y, c);  
+                            //n.isEmpty = true;
+                            textureInstance.SetPixel(t_x, t_y, buildColor);  
                         }
                     }
 
-                    textureInstance.Apply();
+                    applyTexture = true;
                 }
             }
         }
@@ -167,31 +174,56 @@ namespace SA
             curNode = GetNodeFromWorldPos(mousePos);
         }
 
-        List<Node> ClearNodes = new List<Node>(); 
 
-        public void AddCanidateNodes(List<Node> l)
+        // Edit functions
+        List<Node> clearNodes = new List<Node>();
+        List<Node> buildNodes = new List<Node>();
+
+        public void AddCanidateNodesToClear(List<Node> l)
         {
-            ClearNodes.AddRange(l);
+            clearNodes.AddRange(l);
         }
 
         public void ClearListOfPixels()
         {
-            if (ClearNodes.Count == 0)
+            if (clearNodes.Count == 0)
                 return;
 
             Color c = Color.white;
             c.a = 0;
 
-            for (int i = 0; i < ClearNodes.Count; i++)
+            for (int i = 0; i < clearNodes.Count; i++)
             {
-                ClearNodes[i].isEmpty = true;
-                textureInstance.SetPixel(ClearNodes[i].x, ClearNodes[i].y, c);
+                clearNodes[i].isEmpty = true;
+                textureInstance.SetPixel(clearNodes[i].x, clearNodes[i].y, c);
             }
 
-            ClearNodes.Clear();
-            textureInstance.Apply();
+            clearNodes.Clear();
+            applyTexture = true;
         }
 
+        public void AddCanidatesNodesToBuild(List<Node> l)
+        {
+            buildNodes.AddRange(l);
+        }
+
+        void BuildListOfNodes()
+        {
+            if (buildNodes.Count == 0)
+                return;
+
+            for (int i = 0; i < buildNodes.Count; i++)
+            {
+                buildNodes[i].isEmpty = false;
+                textureInstance.SetPixel(buildNodes[i].x, buildNodes[i].y, buildColor);
+            }
+
+            buildNodes.Clear();
+            applyTexture = true;
+        }
+
+
+        //Node functions
         public Node GetNodeFromWorldPos(Vector3 wp)
         {
             int t_x = Mathf.RoundToInt(wp.x / posOffset);

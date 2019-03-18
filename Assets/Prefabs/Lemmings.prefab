@@ -130,14 +130,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d0af6b29cc856f46a6737846ad7aa8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  digDownFrames: 35
   move: 1
   onGround: 0
   isUmbrella: 0
+  isDigForward: 0
   curAbility: 0
   lerpSpeed: 0.2
   fallSpeed: 5
   umbrellaSpeed: 0.4
   dig_down: 0.05
+  airDeathFrames: 80
+  digForwardFrames: 35
+  build_Time: 0.9
+  build_Speed: 0.025
+  buildAmount: 25
   ren: {fileID: 212674655547203746}
   anim: {fileID: 95378371983775008}
 --- !u!212 &212001598873457468
