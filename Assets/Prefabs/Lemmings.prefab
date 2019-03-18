@@ -145,6 +145,9 @@ MonoBehaviour:
   build_Time: 0.9
   build_Speed: 0.025
   buildAmount: 25
+  pixelsOut: 0
+  maxPixels: 250
+  fillStart: 0.6
   ren: {fileID: 212674655547203746}
   anim: {fileID: 95378371983775008}
 --- !u!212 &212001598873457468

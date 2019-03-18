@@ -20,6 +20,13 @@ namespace SA
         Node curNode;
         Node prevNode;
 
+        public Transform fillDebugObj;
+        public bool addFill;
+        public int pixelsOut;
+        public int maxPixels;
+        float f_t;
+        float p_t;
+
         public Transform spawnTransform;
         [HideInInspector]
         public Node spawnNode;
@@ -29,6 +36,7 @@ namespace SA
         Unit curUnit;
 
         public Color buildColor = Color.blue;
+        public Color fillColor = Color.cyan;
         public float editRadius = 6;
         public bool overUIElement;
 
@@ -88,10 +96,18 @@ namespace SA
             CheckForUnit();
             uIManager.Tick();
             HandleUnit();
-            ClearListOfPixels();
-            BuildListOfNodes();
 
-            if(applyTexture)
+            if (addFill)
+            {
+                DebugFill();
+            }
+
+            HandleFillNodes();
+            ClearListOfPixels();
+
+            BuildListOfNodes();            
+
+            if (applyTexture)
                 textureInstance.Apply();
 
             //HandleMouseInput();
@@ -178,6 +194,7 @@ namespace SA
         // Edit functions
         List<Node> clearNodes = new List<Node>();
         List<Node> buildNodes = new List<Node>();
+        List<FillNode> fillNodes = new List<FillNode>();
 
         public void AddCanidateNodesToClear(List<Node> l)
         {
@@ -222,6 +239,146 @@ namespace SA
             applyTexture = true;
         }
 
+        void DebugFill()
+        {
+            if(pixelsOut > maxPixels)
+            {
+                addFill = false;
+                return;
+            }
+
+            p_t += Time.deltaTime;
+
+            if (p_t > 0.05f)
+            {
+                pixelsOut++;
+                p_t = 0;
+            }
+            else
+            {
+                return;
+            }
+
+            Node n = GetNodeFromWorldPos(fillDebugObj.position);
+            FillNode f = new FillNode();
+            f.x = n.x;
+            f.y = n.y;
+            fillNodes.Add(f);
+            applyTexture = true;
+        }
+
+        public void AddFillNodes(FillNode f)
+        {
+            fillNodes.Add(f);
+        }
+
+        void HandleFillNodes()
+        {
+            f_t += Time.deltaTime;
+
+            if(f_t > 0.05f)
+            {
+                f_t = 0;
+            }
+            else
+            {
+                return;
+            }
+
+            if (fillNodes.Count == 0)
+                return;
+
+            for (int i = 0; i < fillNodes.Count; i++)
+            {
+                FillNode f = fillNodes[i];
+                Node cn = GetNode(f.x, f.y);                
+
+                int _y = f.y;
+                _y -= 1;
+
+                Node d = GetNode(f.x, _y);
+                if (d == null)
+                {
+                    fillNodes.Remove(f);
+                    continue;
+                }
+
+                if (d.isEmpty)
+                {
+                    d.isEmpty = false;
+                    textureInstance.SetPixel(d.x, d.y, fillColor);
+                    f.y = _y;
+                    clearNodes.Add(cn);
+                }
+                else
+                {
+                    Node df = GetNode(f.x - 1, _y);
+                    if (df.isEmpty)
+                    {
+                        textureInstance.SetPixel(df.x, df.y, fillColor);
+                        f.y = _y;
+                        f.x -= 1;
+                        df.isEmpty = false;
+                        clearNodes.Add(cn);
+                    }
+                    else
+                    {
+                        Node bf = GetNode(f.x + 1, _y);
+
+                        if (bf.isEmpty)
+                        {
+                            bf.isEmpty = false;
+                            textureInstance.SetPixel(bf.x, bf.y, fillColor);
+                            f.y = _y;
+                            f.x += 1;
+                            clearNodes.Add(cn);
+                        }
+                        else
+                        {
+                            f.t++;
+                            if (f.t > 15)
+                            {
+                                Node _cn = GetNode(f.x, f.y);
+                                fillNodes.Remove(f);
+                            }
+                        }
+                    }
+
+                    /*int _x1 = (f.movingLeft) ? -1 : 1;
+                    int _x2 = (f.movingLeft) ? 1 : -1;
+
+                    Node df = GetNode(f.x + _x1, _y);
+                    if (df.isEmpty)
+                    {
+                        df.isEmpty = false;
+                        textureInstance.SetPixel(df.x, df.y, fillColor);
+                        f.y = _y;
+                        f.x += _x1;
+                        clearNodes.Add(cn);
+                    }
+                    else
+                    {
+                        Node db = GetNode(f.x + _x2, _y);
+                        if (db.isEmpty)
+                        {
+                            db.isEmpty = false;
+                            textureInstance.SetPixel(db.x, db.y, fillColor);
+                            f.y = _y;
+                            f.x += _x2;
+                            clearNodes.Add(db);
+                        }
+                        else
+                        {
+                            f.t++;
+                            if(f.t > 5)
+                            {
+                                fillNodes.Remove(f);
+                            }
+                        }
+                    }*/
+                }
+            }
+        }
 
         //Node functions
         public Node GetNodeFromWorldPos(Vector3 wp)
@@ -265,5 +422,13 @@ namespace SA
         public int y;
         public bool isEmpty;
         public bool isStoped;
+    }
+
+    public class FillNode
+    {
+        public int x;
+        public int y;
+        public int t;
+        public bool movingLeft;
     }
 }

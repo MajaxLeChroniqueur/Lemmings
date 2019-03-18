@@ -33,6 +33,13 @@ namespace SA
         public float build_Time;
         public float build_Speed;
         public int buildAmount = 25;
+        public int pixelsOut;
+        public int maxPixels = 25;
+        public float fillStart = 0.6f;
+        bool startFilling;
+        float fs_t;
+        float f_t;
+        float p_t;
         int b_amount;
         float b_t;
 
@@ -94,6 +101,7 @@ namespace SA
                     Builder(delta);
                     break;
                 case Ability.filler:
+                    Filler(delta);
                     break;
                 default:
                     break;
@@ -152,6 +160,12 @@ namespace SA
                     break;
                 case Ability.filler:
                     curAbility = a;
+                    anim.Play("filler");
+                    startFilling = false;
+                    fs_t = 0;
+                    f_t = 0;
+                    pixelsOut = 0;
+                    p_t = 0;
                     break;
                 default:
                     break;
@@ -350,6 +364,45 @@ namespace SA
             {
                 LerpIntoPosition(delta);
             }
+        }
+
+        void Filler(float delta)
+        {
+            if (!startFilling)
+            {
+                fs_t += delta;
+                if (fs_t < fillStart)
+                {
+                    startFilling = true;
+                }
+            }
+
+            if (pixelsOut > maxPixels)
+            {
+                ChangeAbility(Ability.walker);
+                return;
+            }
+
+            p_t += delta;
+
+            if (p_t > 0.05f)
+            {
+                pixelsOut++;
+                p_t = 0;
+            }
+            else
+            {
+                return;
+            }
+
+            int _x = (movingLeft) ? curNode.x - 3 : curNode.x + 3;
+            int _y = curNode.y + 3;
+
+            Node n = gameManager.GetNode(_x, _y);
+            FillNode f = new FillNode();
+            f.x = n.x;
+            f.y = n.y;
+            gameManager.AddFillNodes(f);
         }
 
         List<Node> CheckNode(Node o, float rad)
