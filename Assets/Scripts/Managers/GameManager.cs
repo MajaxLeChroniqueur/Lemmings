@@ -212,6 +212,7 @@ namespace SA
             for (int i = 0; i < clearNodes.Count; i++)
             {
                 clearNodes[i].isEmpty = true;
+                clearNodes[i].isFiller = false;
                 textureInstance.SetPixel(clearNodes[i].x, clearNodes[i].y, c);
             }
 
@@ -291,7 +292,8 @@ namespace SA
             for (int i = 0; i < fillNodes.Count; i++)
             {
                 FillNode f = fillNodes[i];
-                Node cn = GetNode(f.x, f.y);                
+                Node cn = GetNode(f.x, f.y);
+                cn.isFiller = true;
 
                 int _y = f.y;
                 _y -= 1;
@@ -306,6 +308,7 @@ namespace SA
                 if (d.isEmpty)
                 {
                     d.isEmpty = false;
+                   // d.isFiller = true;
                     textureInstance.SetPixel(d.x, d.y, fillColor);
                     f.y = _y;
                     clearNodes.Add(cn);
@@ -319,6 +322,7 @@ namespace SA
                         f.y = _y;
                         f.x -= 1;
                         df.isEmpty = false;
+                    //    df.isFiller = true;
                         clearNodes.Add(cn);
                     }
                     else
@@ -328,6 +332,7 @@ namespace SA
                         if (bf.isEmpty)
                         {
                             bf.isEmpty = false;
+                          //  bf.isFiller = true;
                             textureInstance.SetPixel(bf.x, bf.y, fillColor);
                             f.y = _y;
                             f.x += 1;
@@ -339,6 +344,7 @@ namespace SA
                             if (f.t > 15)
                             {
                                 Node _cn = GetNode(f.x, f.y);
+                                _cn.isFiller = false;
                                 fillNodes.Remove(f);
                             }
                         }
@@ -422,6 +428,7 @@ namespace SA
         public int y;
         public bool isEmpty;
         public bool isStoped;
+        public bool isFiller;
     }
 
     public class FillNode
@@ -430,5 +437,6 @@ namespace SA
         public int y;
         public int t;
         public bool movingLeft;
+
     }
 }

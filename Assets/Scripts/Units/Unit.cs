@@ -36,6 +36,10 @@ namespace SA
         public int pixelsOut;
         public int maxPixels = 25;
         public float fillStart = 0.6f;
+        public float explodeTimer;
+        public float explodeRadius;
+
+        float e_t;
         bool startFilling;
         float fs_t;
         float f_t;
@@ -102,6 +106,11 @@ namespace SA
                     break;
                 case Ability.filler:
                     Filler(delta);
+                    //CheckCurrentNode();
+                    //CheckNodeBelow();
+                    break;
+                case Ability.explode:
+                    Exploder(delta);
                     break;
                 default:
                     break;
@@ -135,7 +144,9 @@ namespace SA
                     isUmbrella = true;
                     break;
                 case Ability.dig_forward:
-                    isDigForward = true;
+                    anim.Play("dig_forward");
+                    curAbility = a;
+                    //isDigForward = true;
                     df_counter = 0;
                     break;
                 case Ability.dig_down:
@@ -167,9 +178,15 @@ namespace SA
                     pixelsOut = 0;
                     p_t = 0;
                     break;
+                case Ability.explode:
+                    curAbility = a;
+                    anim.Play("dead");
+                    e_t = 0;
+                    break;
                 default:
                     break;
             }
+
             return true;
         }
 
@@ -228,9 +245,79 @@ namespace SA
             transform.position = tp;
         }
 
+        bool CheckNodeBelow()
+        {
+            Node b = gameManager.GetNode(curNode.x, curNode.y - 1);
+
+            if (b != null)
+            {
+                if (b.isEmpty)
+                {
+                    ChangeAbility(Ability.walker);
+                    return true;
+                }
+            }
+            else
+            {
+                ChangeAbility(Ability.walker);
+                return true; 
+            }
+
+            return false;
+        }
+
+        bool CheckCurrentNode()
+        {
+            /*Node b = gameManager.GetNode(curNode.x, curNode.y - 1);
+            
+            if(b != null)
+            {
+                if (b.isEmpty)
+                {
+                    ChangeAbility(Ability.walker);
+                    return;
+                }
+            }
+            else
+            {
+                ChangeAbility(Ability.walker);
+                return;
+            }*/
+
+            if (curNode.isEmpty == false)
+            {
+                ChangeAbility(Ability.walker);
+                return true;
+            }
+
+            return false;
+        }
+
         void Stopper()
         {
+            /*Node b = gameManager.GetNode(curNode.x, curNode.y - 1);
 
+            if (b != null)
+            {
+                if (b.isEmpty)
+                {
+                    ChangeAbility(Ability.walker);
+                    ClearStopNodes();
+                    return;
+                }
+            }
+            else
+            {
+                ChangeAbility(Ability.walker);
+                ClearStopNodes();
+                return;
+            }*/
+
+            if (CheckNodeBelow() || CheckCurrentNode())
+            {
+                ClearStopNodes();
+
+            }
         }
 
         void Builder(float delta)
@@ -338,7 +425,7 @@ namespace SA
                 Node originNode = gameManager.GetNode(t_x, curNode.y + 4);
                 List<Node> canidates = CheckNode(originNode, 5);
 
-                if (canidates.Count == 0 || df_counter > digForwardFrames)
+                if (df_counter > 0 && (canidates.Count < 2 || df_counter > digForwardFrames))
                 {
                     ChangeAbility(Ability.walker);
                     isDigForward = false;
@@ -403,6 +490,41 @@ namespace SA
             f.x = n.x;
             f.y = n.y;
             gameManager.AddFillNodes(f);
+        }
+
+        void Exploder(float delta)
+        {
+            e_t += delta;
+            if(e_t > explodeTimer)
+            {
+                ChangeAbility(Ability.dead);
+
+                float radius = explodeRadius * 0.01f;
+                int steps = Mathf.RoundToInt(explodeRadius);
+                Vector3 center = transform.position;
+                List<Node> canidates = new List<Node>();
+
+                for(int x = -steps; x < steps; x++)
+                {
+                    for (int y = -steps; y < steps; y++)
+                    {
+                        int t_x = x + curNode.x;
+                        int t_y = y + curNode.y;
+
+                        float d = Vector3.Distance(center, gameManager.GetWorldPosFromNode(t_x, t_y));
+                        if (d > radius)
+                            continue;
+
+                        Node n = gameManager.GetNode(t_x, t_y);
+                        if (n == null)
+                            continue;
+
+                        canidates.Add(n);
+                    }
+                }
+
+                gameManager.AddCanidateNodesToClear(canidates);
+            }
         }
 
         List<Node> CheckNode(Node o, float rad)
@@ -546,7 +668,7 @@ namespace SA
                     }
                     else
                     {
-                        anim.Play("land");
+                        anim.Play("walk");
                         targetNode = curNode;
                         prevGround = onGround;
                         airFrame = 0;
@@ -633,7 +755,11 @@ namespace SA
             Node n = gameManager.GetNode(x, y);
             if (n == null)
                 return true;
-            return n.isEmpty;
+            bool isAir = n.isEmpty;
+            if (n.isFiller)
+                isAir = true;
+
+            return isAir;
         }
 
         bool IsStopped(int x, int y)

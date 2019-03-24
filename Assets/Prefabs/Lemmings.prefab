@@ -148,6 +148,8 @@ MonoBehaviour:
   pixelsOut: 0
   maxPixels: 250
   fillStart: 0.6
+  explodeTimer: 1.45
+  explodeRadius: 6
   ren: {fileID: 212674655547203746}
   anim: {fileID: 95378371983775008}
 --- !u!212 &212001598873457468
@@ -231,7 +233,7 @@ SpriteRenderer:
   m_SortingLayerID: -603828173
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a7b0a7ac8e3cffd4db1959aad85e56fe, type: 3}
+  m_Sprite: {fileID: 21300014, guid: a7b0a7ac8e3cffd4db1959aad85e56fe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
