@@ -8,6 +8,7 @@ namespace SA
     {
         public float maxUnits = 10;
         public float timeScale = 1;
+        public float originalTimeScale;
         float delta;
         public float interval = 1;
         float timer;
@@ -29,6 +30,7 @@ namespace SA
 
         void Start()
         {
+            originalTimeScale = timeScale;
             unitsParent = new GameObject();
             unitsParent.name = "Units Parents";
             gameManager = GameManager.singleton;
@@ -103,6 +105,6 @@ namespace SA
 
     public enum Ability
     {
-        walker, stopper, umbrella, dig_forward, dig_down, explode, dead, filler, builder
+        walker, stopper, umbrella, dig_forward, dig_down, explode, dead, filler, builder, fast_forward
     }
 }

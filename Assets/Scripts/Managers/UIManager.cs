@@ -51,7 +51,11 @@ namespace SA
             curButton = b;
             defColor = curButton.buttonImg.color;
             curButton.buttonImg.color = selectTint;
-            targetAbility = curButton.ability;
+            if (curButton.ability != Ability.fast_forward)
+            {
+                targetAbility = curButton.ability;
+            }
+
         }
 
         public static UIManager singleton;

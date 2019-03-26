@@ -39,6 +39,7 @@ public class StartLevel : MonoBehaviour {
 
     IEnumerator Travelling()
     {
+        yield return new WaitForSeconds(2f);
 
         while (Vector3.Distance(cameraPresentation.transform.position, cameraObjective) >= 0.1f)
         {

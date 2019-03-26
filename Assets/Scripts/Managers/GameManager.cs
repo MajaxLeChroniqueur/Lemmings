@@ -15,6 +15,9 @@ namespace SA
         Texture2D textureInstance;
         public SpriteRenderer levelRenderer;
 
+        [Range(2, 10)]
+        public float timeScaled;
+
         public float posOffset = 0.01f;
         int maxX;
         int maxY;
