@@ -7,6 +7,7 @@ public class ArrowDeplacement : MonoBehaviour {
     private Vector2 direction;
     [SerializeField] private float speed;
     public GameObject objetVisee;
+    private float delta;
 
     private void Start()
     {
@@ -17,5 +18,13 @@ public class ArrowDeplacement : MonoBehaviour {
     private void FixedUpdate()
     {
         transform.position = transform.position + (new Vector3(direction.x,direction.y,0) * speed * Time.fixedDeltaTime);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Enemy")
+        {
+            Destroy(gameObject, 0.05f);
+        }
     }
 }
