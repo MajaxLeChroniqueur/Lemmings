@@ -802,6 +802,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ability: 7
   buttonImg: {fileID: 195755089}
+  textUtilisation: {fileID: 1726892620}
+  nUtilisation: 50
 --- !u!114 &195755088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -940,6 +942,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ability: 9
   buttonImg: {fileID: 275870534}
+  textUtilisation: {fileID: 184455661}
+  nUtilisation: 50
 --- !u!114 &275870533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1338,6 +1342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ability: 4
   buttonImg: {fileID: 483714503}
+  textUtilisation: {fileID: 979590931}
+  nUtilisation: 50
 --- !u!1 &569042610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1573,6 +1579,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ability: 3
   buttonImg: {fileID: 572533326}
+  textUtilisation: {fileID: 598749277}
+  nUtilisation: 50
 --- !u!1 &581640695
 GameObject:
   m_ObjectHideFlags: 0
@@ -2028,6 +2036,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ability: 5
   buttonImg: {fileID: 739571846}
+  textUtilisation: {fileID: 812326178}
+  nUtilisation: 50
 --- !u!114 &739571845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2303,6 +2313,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ability: 8
   buttonImg: {fileID: 875687106}
+  textUtilisation: {fileID: 1206184584}
+  nUtilisation: 50
 --- !u!114 &875687105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3769,6 +3781,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ability: 1
   buttonImg: {fileID: 1451751158}
+  textUtilisation: {fileID: 581640697}
+  nUtilisation: 20
 --- !u!1 &1465014895
 GameObject:
   m_ObjectHideFlags: 0
@@ -4626,6 +4640,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ability: 2
   buttonImg: {fileID: 1788280162}
+  textUtilisation: {fileID: 1485048736}
+  nUtilisation: 50
 --- !u!1 &1857501922
 GameObject:
   m_ObjectHideFlags: 0
@@ -4820,11 +4836,6 @@ MonoBehaviour:
   curButton: {fileID: 0}
   selectTint: {r: 0.27901387, g: 0.6226415, b: 0.33361, a: 1}
   canvas: {fileID: 37880844}
-  abilityText:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  abilityNomber: 000000000000000000000000
 --- !u!1 &2038129158
 GameObject:
   m_ObjectHideFlags: 0
