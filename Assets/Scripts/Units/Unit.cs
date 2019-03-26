@@ -876,5 +876,19 @@ namespace SA
             }
             stoppedNodes.Clear();
         }
+
+        public void Die()
+        {
+            ChangeAbility(Ability.dead);
+            anim.Play("dead");
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(collision.tag == "EnemyDamage")
+            {
+                Die();
+            }
+        }
     }
 }
