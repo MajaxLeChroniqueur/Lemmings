@@ -47,6 +47,7 @@ namespace SA
         float p_t;
         int b_amount;
         float b_t;
+        float archerCmpt;
 
         [Header("References")]
         public SpriteRenderer ren;
@@ -60,6 +61,8 @@ namespace SA
         List<Node> stoppedNodes = new List<Node>();
         int t_x;
         int t_y;
+
+        public GameObject archerView;
 
         public void Init(GameManager gm)
         {
@@ -116,9 +119,21 @@ namespace SA
                 case Ability.explode:
                     Exploder(delta);
                     break;
+                case Ability.archer:
+                    Debug.Log("Test");
+                    archerCmpt += Time.deltaTime;
+                    if(archerCmpt>=5f)
+                    {
+                        archerCmpt = 0;
+                        archerView.SetActive(false);
+                        move = true;
+                        curAbility = Ability.walker;
+                    }
+                    break;
                 default:
                     break;
             }
+            Debug.Log(curAbility);
         }
 
         public bool ChangeAbility(Ability a)
@@ -177,6 +192,14 @@ namespace SA
                     {
                         return false;
                     }
+                case Ability.archer:
+                    curAbility = a;
+                    Debug.Log(curAbility);
+                    if (!archerView.activeSelf)
+                    {
+                        archerView.SetActive(true);
+                    }
+                    break;
                 case Ability.dead:
                     curAbility = a;
                     break;
