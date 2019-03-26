@@ -4820,6 +4820,11 @@ MonoBehaviour:
   curButton: {fileID: 0}
   selectTint: {r: 0.27901387, g: 0.6226415, b: 0.33361, a: 1}
   canvas: {fileID: 37880844}
+  abilityText:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  abilityNomber: 000000000000000000000000
 --- !u!1 &2038129158
 GameObject:
   m_ObjectHideFlags: 0

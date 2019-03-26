@@ -61,6 +61,8 @@ namespace SA
         int t_x;
         int t_y;
 
+        public UIManager uIManager;
+
         public void Init(GameManager gm)
         {
             gameManager = gm;
