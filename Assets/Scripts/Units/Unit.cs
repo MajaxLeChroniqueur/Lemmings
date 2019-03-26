@@ -13,6 +13,7 @@ namespace SA
         int df_counter;
         public int digDownFrames = 35;
         int dd_counter;
+        int ddiag_counter;
         bool prevGround;
 
         [Header("states")]
@@ -99,6 +100,9 @@ namespace SA
                 case Ability.dig_forward:
                     DiggingForward(delta);
                     break;
+                case Ability.dig_diagonale:
+                    DiggindDiagonal(delta);
+                    break;
                 case Ability.dead:
                     break;
                 case Ability.builder:
@@ -155,6 +159,18 @@ namespace SA
                         anim.Play("dig_down");
                         curAbility = a;
                         dd_counter = 0;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case Ability.dig_diagonale:
+                    if (onGround)
+                    {
+                        //anim.Play("dig_diag");
+                        curAbility = a;
+                        ddiag_counter = 0;
                         return true;
                     }
                     else
@@ -446,6 +462,49 @@ namespace SA
 
                 float d = Vector3.Distance(targetPos, startPos);
                 baseSpeed = dig_down / d;
+            }
+            else
+            {
+                LerpIntoPosition(delta);
+            }
+        }
+
+        void DiggindDiagonal(float delta)
+        {
+            Debug.Log("Test");
+            if (!initLerp)
+            {
+                initLerp = true;
+                startPos = transform.position;
+                t = 0;
+
+                int t_x = (movingLeft) ? curNode.x - 2 : curNode.x + 2;
+                Node originNode = gameManager.GetNode(t_x, curNode.y + 1);
+                List<Node> canidates = CheckNode(originNode, 5);
+
+                if (df_counter > 0 && (canidates.Count < 2 || df_counter > digForwardFrames) || canidates.Count == 0 || dd_counter > digDownFrames)
+                {
+                    ChangeAbility(Ability.walker);
+                    isDigForward = false;
+                    return;
+                }
+                df_counter++;
+                dd_counter++;
+
+                gameManager.AddCanidateNodesToClear(canidates);
+
+                Node n = gameManager.GetNode(t_x, curNode.y - 1);
+                if (n == null)
+                {
+                    ChangeAbility(Ability.walker);
+                    return;
+                }
+                targetNode = n;
+                targetPos = gameManager.GetWorldPosFromNode(targetNode);
+
+                float d = Vector3.Distance(targetPos, startPos);
+                baseSpeed = dig_down / d;
+
             }
             else
             {
