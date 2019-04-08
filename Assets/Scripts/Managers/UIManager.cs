@@ -34,6 +34,10 @@ namespace SA
             if (overUnit)
             {
                 mouse.sprite = box;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    curButton.Minus();
+                }
             }
             else
             {
@@ -52,7 +56,7 @@ namespace SA
             defColor = curButton.buttonImg.color;
             curButton.buttonImg.color = selectTint;
             targetAbility = curButton.ability;
-        }
+        }        
 
         public static UIManager singleton;
         void Awake()

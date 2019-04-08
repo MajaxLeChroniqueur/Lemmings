@@ -38,7 +38,7 @@ namespace SA
         public int maxPixels = 25;
         public float fillStart = 0.6f;
         public float explodeTimer;
-        public float explodeRadius;
+        public float explodeRadius;       
 
         float e_t;
         bool startFilling;
@@ -48,6 +48,7 @@ namespace SA
         int b_amount;
         float b_t;
         float archerCmpt;
+        [SerializeField] bool isclimb = false;
 
         [Header("References")]
         public SpriteRenderer ren;
@@ -63,6 +64,8 @@ namespace SA
         int t_y;
 
         public GameObject archerView;
+
+        public UIManager uIManager;
 
         public void Init(GameManager gm)
         {
@@ -129,6 +132,8 @@ namespace SA
                         move = true;
                         curAbility = Ability.walker;
                     }
+                    break;
+                case Ability.climber:
                     break;
                 default:
                     break;
@@ -204,23 +209,40 @@ namespace SA
                     curAbility = a;
                     break;
                 case Ability.builder:
-                    anim.Play("build");
-                    curAbility = a;
-                    b_amount = 0;
-                    break;
+                    if (onGround)
+                    {
+                        anim.Play("build");
+                        curAbility = a;
+                        b_amount = 0;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }                    
                 case Ability.filler:
-                    curAbility = a;
-                    anim.Play("filler");
-                    startFilling = false;
-                    fs_t = 0;
-                    f_t = 0;
-                    pixelsOut = 0;
-                    p_t = 0;
-                    break;
+                    if (onGround)
+                    {
+                        curAbility = a;
+                        anim.Play("filler");
+                        startFilling = false;
+                        fs_t = 0;
+                        f_t = 0;
+                        pixelsOut = 0;
+                        p_t = 0;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }                    
                 case Ability.explode:
                     curAbility = a;
                     anim.Play("dead");
                     e_t = 0;
+                    break;
+                case Ability.climber:
+                    isclimb = true;
                     break;
                 default:
                     break;
@@ -701,7 +723,7 @@ namespace SA
             }
 
             return r;
-        }*/
+        }*/        
 
         bool PathFind()
         {
@@ -819,9 +841,23 @@ namespace SA
                             }
                             else
                             {
-                                movingLeft = !movingLeft;
-                                t_x = (movingLeft) ? curNode.x - 1 : curNode.x + 1;
-                            }                            
+                                if (isclimb)
+                                {                    
+                                    t_x = curNode.x;
+                                    t_y += 1;
+
+                                    Node c = gameManager.GetNode(t_x + 1, t_y + 3);
+                                    if(c.isEmpty)
+                                    {
+                                        isclimb = false;
+                                    }
+                                }
+                                else
+                                {
+                                    movingLeft = !movingLeft;
+                                    t_x = (movingLeft) ? curNode.x - 1 : curNode.x + 1;
+                                }                                
+                            }
                         }
                     }
                 }

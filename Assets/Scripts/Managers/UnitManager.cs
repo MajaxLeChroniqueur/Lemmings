@@ -98,5 +98,6 @@ namespace SA
     public enum Ability
     {
         walker, stopper, umbrella, dig_forward, dig_down, explode, dead, filler, builder, dig_diagonale, archer
+        walker, stopper, umbrella, dig_forward, dig_down, explode, dead, filler, builder, climber,
     }
 }
