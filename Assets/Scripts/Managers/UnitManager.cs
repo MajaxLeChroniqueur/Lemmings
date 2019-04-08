@@ -8,6 +8,7 @@ namespace SA
     {
         public float maxUnits = 10;
         public float timeScale = 1;
+        public float originalTimeScale;
         float delta;
         public float interval = 1;
         float timer;
@@ -18,6 +19,9 @@ namespace SA
 
         public bool changeSpeed;
 
+        [SerializeField]
+        StartLevel startLevel;
+
         public static UnitManager singleton;
         void Awake()
         {
@@ -26,6 +30,7 @@ namespace SA
 
         void Start()
         {
+            originalTimeScale = timeScale;
             unitsParent = new GameObject();
             unitsParent.name = "Units Parents";
             gameManager = GameManager.singleton;
@@ -36,25 +41,28 @@ namespace SA
             delta = Time.deltaTime;
             delta *= timeScale;
 
-            if (changeSpeed)
+            if (startLevel.canGameStart == true)
             {
-                changeSpeed = false;
-                ChangeSpeedForAllUnits(timeScale);
-            }
-
-            if(all_units.Count < maxUnits)
-            {
-                timer -= delta;
-                if (timer < 0)
+                if (changeSpeed)
                 {
-                    timer = interval;
-                    SpawnLennings();
+                    changeSpeed = false;
+                    ChangeSpeedForAllUnits(timeScale);
                 }
-            }            
 
-            for (int i = 0; i < all_units.Count; i++)
-            {
-                all_units[i].Tick(delta);
+                if (all_units.Count < maxUnits)
+                {
+                    timer -= delta;
+                    if (timer < 0)
+                    {
+                        timer = interval;
+                        SpawnLennings();
+                    }
+                }
+
+                for (int i = 0; i < all_units.Count; i++)
+                {
+                    all_units[i].Tick(delta);
+                }
             }
         }
 
@@ -99,5 +107,6 @@ namespace SA
     {
         walker, stopper, umbrella, dig_forward, dig_down, explode, dead, filler, builder, dig_diagonale, archer
         walker, stopper, umbrella, dig_forward, dig_down, explode, dead, filler, builder, climber,
+        walker, stopper, umbrella, dig_forward, dig_down, explode, dead, filler, builder, fast_forward
     }
 }

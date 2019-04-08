@@ -7,9 +7,16 @@ namespace SA
 {
     public class GameManager : MonoBehaviour
     {
+
+        public Vector3[] cameraPositionLevel;
+        public int actualLevel = 1;
+
         public Texture2D levelTexture;
         Texture2D textureInstance;
         public SpriteRenderer levelRenderer;
+
+        [Range(2, 10)]
+        public float timeScaled;
 
         public float posOffset = 0.01f;
         int maxX;
@@ -46,6 +53,9 @@ namespace SA
 
         public static GameManager singleton;
 
+        [SerializeField]
+        StartLevel startLevel;
+
         void Awake()
         {
             singleton = this;
@@ -58,6 +68,7 @@ namespace SA
             CreateLevel();
             spawnNode = GetNodeFromWorldPos(spawnTransform.position);
             spawnPosition = GetWorldPosFromNode(spawnNode);
+            startLevel.PregameCameraTravel(cameraPositionLevel[actualLevel - 1]);
         }
 
         void CreateLevel()
@@ -91,25 +102,24 @@ namespace SA
 
         void Update()
         {
-            overUIElement = EventSystem.current.IsPointerOverGameObject();
-            GetMousePosition();
-            CheckForUnit();
-            uIManager.Tick();
-            HandleUnit();
+                overUIElement = EventSystem.current.IsPointerOverGameObject();
+                GetMousePosition();
+                CheckForUnit();
+                uIManager.Tick();
+                HandleUnit();
 
-            if (addFill)
-            {
-                DebugFill();
-            }
+                if (addFill)
+                {
+                    DebugFill();
+                }
 
-            HandleFillNodes();
-            ClearListOfPixels();
+                HandleFillNodes();
+                ClearListOfPixels();
 
-            BuildListOfNodes();            
+                BuildListOfNodes();
 
-            if (applyTexture)
-                textureInstance.Apply();
-
+                if (applyTexture)
+                    textureInstance.Apply();
             //HandleMouseInput();
         }
 
