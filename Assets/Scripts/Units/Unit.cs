@@ -67,6 +67,18 @@ namespace SA
 
         public UIManager uIManager;
 
+        public bool isMonster;
+
+        public void Start()
+        {
+            if(isMonster)
+            {
+                PlaceOnNode();
+                isInit = true;
+                curAbility = Ability.walker;
+            }
+        }
+
         public void Init(GameManager gm)
         {
             gameManager = gm;
@@ -145,109 +157,111 @@ namespace SA
         {
             isUmbrella = false;
 
-
-            switch (a)
+            if (!isMonster)
             {
-                case Ability.walker:
-                    curAbility = a;
-                    anim.Play("walk");
-                    break;
-                case Ability.stopper:
-                    if (onGround)
-                    {
-                        FindStoppedNodes();
-                        anim.Play("stop");
+                switch (a)
+                {
+                    case Ability.walker:
                         curAbility = a;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                case Ability.umbrella:
-                    isUmbrella = true;
-                    break;
-                case Ability.dig_forward:
-                    anim.Play("dig_forward");
-                    curAbility = a;
-                    //isDigForward = true;
-                    df_counter = 0;
-                    break;
-                case Ability.dig_down:
-                    if (onGround)
-                    {
-                        anim.Play("dig_down");
+                        anim.Play("walk");
+                        break;
+                    case Ability.stopper:
+                        if (onGround)
+                        {
+                            FindStoppedNodes();
+                            anim.Play("stop");
+                            curAbility = a;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case Ability.umbrella:
+                        isUmbrella = true;
+                        break;
+                    case Ability.dig_forward:
+                        anim.Play("dig_forward");
                         curAbility = a;
-                        dd_counter = 0;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                case Ability.dig_diagonale:
-                    if (onGround)
-                    {
-                        //anim.Play("dig_diag");
+                        //isDigForward = true;
+                        df_counter = 0;
+                        break;
+                    case Ability.dig_down:
+                        if (onGround)
+                        {
+                            anim.Play("dig_down");
+                            curAbility = a;
+                            dd_counter = 0;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case Ability.dig_diagonale:
+                        if (onGround)
+                        {
+                            //anim.Play("dig_diag");
+                            curAbility = a;
+                            ddiag_counter = 0;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case Ability.archer:
                         curAbility = a;
-                        ddiag_counter = 0;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                case Ability.archer:
-                    curAbility = a;
-                    Debug.Log(curAbility);
-                    if (!archerView.activeSelf)
-                    {
-                        archerView.SetActive(true);
-                    }
-                    break;
-                case Ability.dead:
-                    curAbility = a;
-                    break;
-                case Ability.builder:
-                    if (onGround)
-                    {
-                        anim.Play("build");
+                        Debug.Log(curAbility);
+                        if (!archerView.activeSelf)
+                        {
+                            archerView.SetActive(true);
+                        }
+                        break;
+                    case Ability.dead:
                         curAbility = a;
-                        b_amount = 0;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }                    
-                case Ability.filler:
-                    if (onGround)
-                    {
+                        break;
+                    case Ability.builder:
+                        if (onGround)
+                        {
+                            anim.Play("build");
+                            curAbility = a;
+                            b_amount = 0;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case Ability.filler:
+                        if (onGround)
+                        {
+                            curAbility = a;
+                            anim.Play("filler");
+                            startFilling = false;
+                            fs_t = 0;
+                            f_t = 0;
+                            pixelsOut = 0;
+                            p_t = 0;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case Ability.explode:
                         curAbility = a;
-                        anim.Play("filler");
-                        startFilling = false;
-                        fs_t = 0;
-                        f_t = 0;
-                        pixelsOut = 0;
-                        p_t = 0;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }                    
-                case Ability.explode:
-                    curAbility = a;
-                    anim.Play("dead");
-                    e_t = 0;
-                    break;
-                case Ability.climber:
-                    isclimb = true;
-                    break;
-                default:
-                    break;
-            }
+                        anim.Play("dead");
+                        e_t = 0;
+                        break;
+                    case Ability.climber:
+                        isclimb = true;
+                        break;
+                    default:
+                        break;
+                }
 
+            }
             return true;
         }
 
