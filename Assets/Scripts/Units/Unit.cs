@@ -63,11 +63,15 @@ namespace SA
         int t_x;
         int t_y;
 
+        public bool isDead;
+
         public GameObject archerView;
 
         public UIManager uIManager;
 
         public bool isMonster;
+
+        public GameObject spriteMask;
 
         public void Start()
         {
@@ -146,6 +150,9 @@ namespace SA
                     }
                     break;
                 case Ability.climber:
+                    break;
+                case Ability.lighter:
+                    Lighter();
                     break;
                 default:
                     break;
@@ -256,6 +263,9 @@ namespace SA
                         break;
                     case Ability.climber:
                         isclimb = true;
+                        break;
+                    case Ability.lighter:
+                        curAbility = a;
                         break;
                     default:
                         break;
@@ -610,7 +620,7 @@ namespace SA
             gameManager.AddFillNodes(f);
         }
 
-        void Exploder(float delta)
+        public void Exploder(float delta)
         {
             e_t += delta;
             if(e_t > explodeTimer)
@@ -927,10 +937,20 @@ namespace SA
             stoppedNodes.Clear();
         }
 
+        void Lighter()
+        {
+            spriteMask.SetActive(true);
+            curAbility = Ability.walker;
+        }
+
         public void Die()
         {
-            ChangeAbility(Ability.dead);
-            anim.Play("dead");
+            if (isDead == false)
+            {
+                ChangeAbility(Ability.dead);
+                anim.Play("dead");
+                isDead = true;
+            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

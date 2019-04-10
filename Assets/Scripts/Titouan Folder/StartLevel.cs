@@ -23,7 +23,7 @@ public class StartLevel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        canGameStart = false;
+
 	}
 	
 	// Update is called once per frame
