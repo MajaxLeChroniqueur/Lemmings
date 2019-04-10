@@ -32,6 +32,11 @@ namespace SA
 
             UIManager.singleton.PressAbilityButton(this);
         }
+
+        public void ExplodeAll()
+        {
+            parentLemmings = 
+        }
     }
 
 }

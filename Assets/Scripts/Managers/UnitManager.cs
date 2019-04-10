@@ -33,6 +33,7 @@ namespace SA
             originalTimeScale = timeScale;
             unitsParent = new GameObject();
             unitsParent.name = "Units Parents";
+            unitsParent.tag = "LemmingsParent";
             gameManager = GameManager.singleton;
         }
 
