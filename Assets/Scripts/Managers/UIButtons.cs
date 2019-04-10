@@ -10,7 +10,21 @@ namespace SA
     {
         public Ability ability;
         public Image buttonImg;
+        public Text textUtilisation;
+        public int nUtilisation;        
         private float timeScaled;
+
+        private void Update()
+        {
+            textUtilisation.text = nUtilisation.ToString("");
+
+            
+
+            if(nUtilisation <= 0)
+            {
+                gameObject.SetActive(false);
+            }            
+        }
 
         public void Press()
         {
@@ -33,9 +47,9 @@ namespace SA
             UIManager.singleton.PressAbilityButton(this);
         }
 
-        public void ExplodeAll()
+        public void Minus()
         {
-            parentLemmings = 
+            nUtilisation -= 1;
         }
     }
 

@@ -13,6 +13,7 @@ namespace SA
         int df_counter;
         public int digDownFrames = 35;
         int dd_counter;
+        int ddiag_counter;
         bool prevGround;
 
         [Header("states")]
@@ -37,7 +38,7 @@ namespace SA
         public int maxPixels = 25;
         public float fillStart = 0.6f;
         public float explodeTimer;
-        public float explodeRadius;
+        public float explodeRadius;       
 
         float e_t;
         bool startFilling;
@@ -46,6 +47,8 @@ namespace SA
         float p_t;
         int b_amount;
         float b_t;
+        float archerCmpt;
+        [SerializeField] bool isclimb = false;
 
         [Header("References")]
         public SpriteRenderer ren;
@@ -59,6 +62,22 @@ namespace SA
         List<Node> stoppedNodes = new List<Node>();
         int t_x;
         int t_y;
+
+        public GameObject archerView;
+
+        public UIManager uIManager;
+
+        public bool isMonster;
+
+        public void Start()
+        {
+            if(isMonster)
+            {
+                PlaceOnNode();
+                isInit = true;
+                curAbility = Ability.walker;
+            }
+        }
 
         public void Init(GameManager gm)
         {
@@ -99,6 +118,9 @@ namespace SA
                 case Ability.dig_forward:
                     DiggingForward(delta);
                     break;
+                case Ability.dig_diagonale:
+                    DiggindDiagonal(delta);
+                    break;
                 case Ability.dead:
                     break;
                 case Ability.builder:
@@ -112,81 +134,134 @@ namespace SA
                 case Ability.explode:
                     Exploder(delta);
                     break;
+                case Ability.archer:
+                    Debug.Log("Test");
+                    archerCmpt += Time.deltaTime;
+                    if(archerCmpt>=5f)
+                    {
+                        archerCmpt = 0;
+                        archerView.SetActive(false);
+                        move = true;
+                        curAbility = Ability.walker;
+                    }
+                    break;
+                case Ability.climber:
+                    break;
                 default:
                     break;
             }
+            Debug.Log(curAbility);
         }
 
         public bool ChangeAbility(Ability a)
         {
             isUmbrella = false;
 
-
-            switch (a)
+            if (!isMonster)
             {
-                case Ability.walker:
-                    curAbility = a;
-                    anim.Play("walk");
-                    break;
-                case Ability.stopper:
-                    if (onGround)
-                    {
-                        FindStoppedNodes();
-                        anim.Play("stop");
+                switch (a)
+                {
+                    case Ability.walker:
                         curAbility = a;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                case Ability.umbrella:
-                    isUmbrella = true;
-                    break;
-                case Ability.dig_forward:
-                    anim.Play("dig_forward");
-                    curAbility = a;
-                    //isDigForward = true;
-                    df_counter = 0;
-                    break;
-                case Ability.dig_down:
-                    if (onGround)
-                    {
-                        anim.Play("dig_down");
+                        anim.Play("walk");
+                        break;
+                    case Ability.stopper:
+                        if (onGround)
+                        {
+                            FindStoppedNodes();
+                            anim.Play("stop");
+                            curAbility = a;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case Ability.umbrella:
+                        isUmbrella = true;
+                        break;
+                    case Ability.dig_forward:
+                        anim.Play("dig_forward");
                         curAbility = a;
-                        dd_counter = 0;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                case Ability.dead:
-                    curAbility = a;
-                    break;
-                case Ability.builder:
-                    anim.Play("build");
-                    curAbility = a;
-                    b_amount = 0;
-                    break;
-                case Ability.filler:
-                    curAbility = a;
-                    anim.Play("filler");
-                    startFilling = false;
-                    fs_t = 0;
-                    f_t = 0;
-                    pixelsOut = 0;
-                    p_t = 0;
-                    break;
-                case Ability.explode:
-                    curAbility = a;
-                    anim.Play("dead");
-                    e_t = 0;
-                    break;
-                default:
-                    break;
-            }
+                        //isDigForward = true;
+                        df_counter = 0;
+                        break;
+                    case Ability.dig_down:
+                        if (onGround)
+                        {
+                            anim.Play("dig_down");
+                            curAbility = a;
+                            dd_counter = 0;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case Ability.dig_diagonale:
+                        if (onGround)
+                        {
+                            //anim.Play("dig_diag");
+                            curAbility = a;
+                            ddiag_counter = 0;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case Ability.archer:
+                        curAbility = a;
+                        Debug.Log(curAbility);
+                        if (!archerView.activeSelf)
+                        {
+                            archerView.SetActive(true);
+                        }
+                        break;
+                    case Ability.dead:
+                        curAbility = a;
+                        break;
+                    case Ability.builder:
+                        if (onGround)
+                        {
+                            anim.Play("build");
+                            curAbility = a;
+                            b_amount = 0;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case Ability.filler:
+                        if (onGround)
+                        {
+                            curAbility = a;
+                            anim.Play("filler");
+                            startFilling = false;
+                            fs_t = 0;
+                            f_t = 0;
+                            pixelsOut = 0;
+                            p_t = 0;
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    case Ability.explode:
+                        curAbility = a;
+                        anim.Play("dead");
+                        e_t = 0;
+                        break;
+                    case Ability.climber:
+                        isclimb = true;
+                        break;
+                    default:
+                        break;
+                }
 
+            }
             return true;
         }
 
@@ -453,6 +528,49 @@ namespace SA
             }
         }
 
+        void DiggindDiagonal(float delta)
+        {
+            Debug.Log("Test");
+            if (!initLerp)
+            {
+                initLerp = true;
+                startPos = transform.position;
+                t = 0;
+
+                int t_x = (movingLeft) ? curNode.x - 2 : curNode.x + 2;
+                Node originNode = gameManager.GetNode(t_x, curNode.y + 1);
+                List<Node> canidates = CheckNode(originNode, 5);
+
+                if (df_counter > 0 && (canidates.Count < 2 || df_counter > digForwardFrames) || canidates.Count == 0 || dd_counter > digDownFrames)
+                {
+                    ChangeAbility(Ability.walker);
+                    isDigForward = false;
+                    return;
+                }
+                df_counter++;
+                dd_counter++;
+
+                gameManager.AddCanidateNodesToClear(canidates);
+
+                Node n = gameManager.GetNode(t_x, curNode.y - 1);
+                if (n == null)
+                {
+                    ChangeAbility(Ability.walker);
+                    return;
+                }
+                targetNode = n;
+                targetPos = gameManager.GetWorldPosFromNode(targetNode);
+
+                float d = Vector3.Distance(targetPos, startPos);
+                baseSpeed = dig_down / d;
+
+            }
+            else
+            {
+                LerpIntoPosition(delta);
+            }
+        }
+
         void Filler(float delta)
         {
             if (!startFilling)
@@ -619,7 +737,7 @@ namespace SA
             }
 
             return r;
-        }*/
+        }*/        
 
         bool PathFind()
         {
@@ -737,9 +855,23 @@ namespace SA
                             }
                             else
                             {
-                                movingLeft = !movingLeft;
-                                t_x = (movingLeft) ? curNode.x - 1 : curNode.x + 1;
-                            }                            
+                                if (isclimb)
+                                {                    
+                                    t_x = curNode.x;
+                                    t_y += 1;
+
+                                    Node c = gameManager.GetNode(t_x + 1, t_y + 3);
+                                    if(c.isEmpty)
+                                    {
+                                        isclimb = false;
+                                    }
+                                }
+                                else
+                                {
+                                    movingLeft = !movingLeft;
+                                    t_x = (movingLeft) ? curNode.x - 1 : curNode.x + 1;
+                                }                                
+                            }
                         }
                     }
                 }
@@ -793,6 +925,20 @@ namespace SA
                 stoppedNodes[i].isStoped = false;
             }
             stoppedNodes.Clear();
+        }
+
+        public void Die()
+        {
+            ChangeAbility(Ability.dead);
+            anim.Play("dead");
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if(collision.tag == "EnemyDamage")
+            {
+                Die();
+            }
         }
     }
 }

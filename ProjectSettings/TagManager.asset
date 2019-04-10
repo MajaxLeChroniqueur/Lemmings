@@ -4,7 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - LemmingsParent
+  - Enemy
+  - EnemyDamage
+  - PlayerAttack
+  - Lemmings
   layers:
   - Default
   - TransparentFX

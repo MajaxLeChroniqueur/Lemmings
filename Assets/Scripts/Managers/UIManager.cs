@@ -34,6 +34,10 @@ namespace SA
             if (overUnit)
             {
                 mouse.sprite = box;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    curButton.Minus();
+                }
             }
             else
             {
