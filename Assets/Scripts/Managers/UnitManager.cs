@@ -9,7 +9,7 @@ namespace SA
         public float maxUnits = 10;
         public float timeScale = 1;
         public float originalTimeScale;
-        float delta;
+        public float delta;
         public float interval = 1;
         float timer;
         public GameObject unitPrefab;
@@ -22,6 +22,9 @@ namespace SA
         [SerializeField]
         StartLevel startLevel;
 
+        [SerializeField]
+        UIButtons uIButtons;
+
         public static UnitManager singleton;
         void Awake()
         {
@@ -33,6 +36,8 @@ namespace SA
             originalTimeScale = timeScale;
             unitsParent = new GameObject();
             unitsParent.name = "Units Parents";
+            unitsParent.tag = "LemmingsParent";
+            uIButtons.parents = unitsParent.transform;
             gameManager = GameManager.singleton;
         }
 
@@ -105,6 +110,6 @@ namespace SA
 
     public enum Ability
     {
-        walker, stopper, umbrella, dig_forward, dig_down, explode, dead, filler, builder, dig_diagonale, archer, climber, fast_forward
+        walker, stopper, umbrella, dig_forward, dig_down, explode, dead, filler, builder, dig_diagonale, archer, climber, fast_forward, lighter
     }
 }

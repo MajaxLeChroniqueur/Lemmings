@@ -8,6 +8,8 @@ TagManager:
   - EnemyDamage
   - PlayerAttack
   - Lemmings
+  - LemmingsParent
+  - LighterSpriteMask
   layers:
   - Default
   - TransparentFX

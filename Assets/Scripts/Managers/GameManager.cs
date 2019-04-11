@@ -68,7 +68,10 @@ namespace SA
             CreateLevel();
             spawnNode = GetNodeFromWorldPos(spawnTransform.position);
             spawnPosition = GetWorldPosFromNode(spawnNode);
-            startLevel.PregameCameraTravel(cameraPositionLevel[actualLevel - 1]);
+            if (startLevel.canGameStart == false)
+            {
+                startLevel.PregameCameraTravel(cameraPositionLevel[actualLevel - 1]);
+            }
         }
 
         void CreateLevel()

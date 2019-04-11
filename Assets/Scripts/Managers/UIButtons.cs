@@ -13,6 +13,7 @@ namespace SA
         public Text textUtilisation;
         public int nUtilisation;        
         private float timeScaled;
+        public Transform parents;
 
         private void Update()
         {
@@ -48,6 +49,24 @@ namespace SA
         public void Minus()
         {
             nUtilisation -= 1;
+        }
+
+        public void Explosion()
+        {
+            if (parents != null)
+            {
+                foreach (Transform lemmings in parents)
+                {
+                    if (lemmings.GetComponent<Unit>().isDead == false)
+                    {
+                        lemmings.GetComponent<Unit>().curAbility = Ability.explode;
+                        lemmings.GetComponent<Unit>().anim.Play("dead");
+                        lemmings.GetComponent<Unit>().isDead = true;
+
+                    }
+                    //lemmings.GetComponent<Unit>().Die();
+                }
+            }
         }
     }
 
