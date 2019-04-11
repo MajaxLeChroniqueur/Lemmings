@@ -1336,6 +1336,11 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 303529544}
   m_CullTransparentMesh: 0
+--- !u!1 &392737832 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1889846161544398, guid: 9e0ae001d1b0e134aac8ac878bfd941f,
+    type: 2}
+  m_PrefabInternal: {fileID: 445839081}
 --- !u!1 &434181750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1430,11 +1435,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4900675784709144, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1.02
+      value: 3.311
       objectReference: {fileID: 0}
     - target: {fileID: 4900675784709144, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.27
+      value: 0.311
       objectReference: {fileID: 0}
     - target: {fileID: 4900675784709144, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1464,7 +1469,71 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 212645446210074550, guid: 9e0ae001d1b0e134aac8ac878bfd941f,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9d83d7048213f474c84b71b64e02df9a,
+        type: 3}
+    - target: {fileID: 4373463866319552, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4373463866319552, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739516950632840, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739516950632840, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 331040931005507594, guid: 9e0ae001d1b0e134aac8ac878bfd941f,
+        type: 2}
+      propertyPath: m_IsCustomRangeActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739516950632840, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739516950632840, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1889846161544398, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456780683814560, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
+      propertyPath: m_Name
+      value: Lanterne
+      objectReference: {fileID: 0}
+    - target: {fileID: 212645446210074550, guid: 9e0ae001d1b0e134aac8ac878bfd941f,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212645446210074550, guid: 9e0ae001d1b0e134aac8ac878bfd941f,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 212645446210074550, guid: 9e0ae001d1b0e134aac8ac878bfd941f,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1456780683814560, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114360863829124498, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
+    - {fileID: 95225733655801818, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &474689868
@@ -2893,7 +2962,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &848659625
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3768,6 +3837,23 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1005744810}
   m_CullTransparentMesh: 0
+--- !u!1 &1047486471 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1456780683814560, guid: 9e0ae001d1b0e134aac8ac878bfd941f,
+    type: 2}
+  m_PrefabInternal: {fileID: 445839081}
+--- !u!114 &1047486472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1047486471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e3a8eb2e194e3418efaf493e4dad65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 392737832}
 --- !u!1 &1128128131
 GameObject:
   m_ObjectHideFlags: 0

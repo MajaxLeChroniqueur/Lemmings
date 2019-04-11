@@ -38,7 +38,8 @@ namespace SA
         public int maxPixels = 25;
         public float fillStart = 0.6f;
         public float explodeTimer;
-        public float explodeRadius;       
+        public float explodeRadius;
+        public bool doesMakeLight;
 
         float e_t;
         bool startFilling;
@@ -971,6 +972,7 @@ namespace SA
 
         void Lighter()
         {
+            doesMakeLight = true;
             spriteMask.SetActive(true);
             curAbility = Ability.walker;
         }
