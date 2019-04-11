@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace SA
+namespace Lemmings
 {
     public class UIManager : MonoBehaviour
     {
@@ -21,10 +21,36 @@ namespace SA
         Color defColor;
         public GameObject canvas;
 
+        public Text lemmingsOutText;
+        [HideInInspector] public int lemmingsOut;
+
+        UnitManager unitManager;
+        public Text lemmingLeftText;
+
         void Start()
         {
+            unitManager = UnitManager.singleton;
+
             Cursor.visible = false;
             canvas.SetActive(true);
+
+            lemmingsOut = 0;
+        }
+
+        private void Update()
+        {
+            LemmingsOut();
+            LemmingsLeft();
+        }
+
+        void LemmingsOut()
+        {
+            lemmingsOutText.text = lemmingsOut.ToString("00");
+        }
+
+        void LemmingsLeft()
+        {
+            lemmingLeftText.text = unitManager.lemmingsLeft.ToString("00");
         }
 
         public void Tick()

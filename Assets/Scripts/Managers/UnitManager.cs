@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SA
+namespace Lemmings
 {
     public class UnitManager : MonoBehaviour
     {
@@ -11,12 +11,15 @@ namespace SA
         float delta;
         public float interval = 1;
         float timer;
+        bool isAcc;
         public GameObject unitPrefab;
         GameObject unitsParent;
         List<Unit> all_units = new List<Unit>();
         GameManager gameManager;
 
         public bool changeSpeed;
+
+        [HideInInspector] public float lemmingsLeft;
 
         public static UnitManager singleton;
         void Awake()
@@ -29,6 +32,8 @@ namespace SA
             unitsParent = new GameObject();
             unitsParent.name = "Units Parents";
             gameManager = GameManager.singleton;
+
+            isAcc = false;
         }
 
         void Update()
@@ -55,6 +60,34 @@ namespace SA
             for (int i = 0; i < all_units.Count; i++)
             {
                 all_units[i].Tick(delta);
+            }
+
+            lemmingsLeft = maxUnits - all_units.Count;
+        }
+
+        public void MoreBoutton()
+        {
+            if (isAcc == false)
+            {
+                interval = .2f;
+                isAcc = true;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        public void LessBoutton()
+        {
+            if (isAcc == true)
+            {
+                interval = 1;
+                isAcc = false;
+            }
+            else
+            {
+                return;
             }
         }
 

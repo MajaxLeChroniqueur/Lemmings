@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace SA
+namespace Lemmings
 {
     public class GameManager : MonoBehaviour
     {

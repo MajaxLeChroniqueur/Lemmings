@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1661784858477384}
+  m_IsPrefabAsset: 1
+--- !u!1 &1661784858477384
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4887512093178350}
+  - component: {fileID: 114485573796507168}
+  - component: {fileID: 114044307762930074}
+  - component: {fileID: 114496690781472568}
+  - component: {fileID: 114787341203567912}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4887512093178350
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661784858477384}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114044307762930074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661784858477384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80aa39ce72b58e4ab3da5393d6bef3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxUnits: 50
+  timeScale: 1
+  interval: 2
+  unitPrefab: {fileID: 1774281891001704, guid: 78929096c41a80d4eb29dba1c963a3ef, type: 2}
+  changeSpeed: 0
+  lemmingsLeft: 0
+--- !u!114 &114485573796507168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661784858477384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312c7bbe9475e6a4191cf154c48b7e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelTexture: {fileID: 2800000, guid: d0bba9cc08fe48048ba9b8f7f057e0d3, type: 3}
+  levelRenderer: {fileID: 0}
+  posOffset: 0.01
+  fillDebugObj: {fileID: 0}
+  addFill: 0
+  pixelsOut: 0
+  maxPixels: 10000
+  spawnTransform: {fileID: 0}
+  spawnPosition: {x: 0, y: 0, z: 0}
+  buildColor: {r: 0.40000004, g: 0.22352943, b: 0.19215688, a: 1}
+  fillColor: {r: 0.9568628, g: 0.75294125, b: 0.4156863, a: 1}
+  editRadius: 6
+  overUIElement: 0
+--- !u!114 &114496690781472568
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661784858477384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd688f69d2ffd8a479d6d80d3b8f32cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.01
+  camTrans: {fileID: 0}
+  minY: 0
+  minX: 0
+  maxX: 5.004
+--- !u!114 &114787341203567912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1661784858477384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01192a17c0036374f9ee6c5a895eff00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseTrans: {fileID: 0}
+  mouse: {fileID: 0}
+  cross1: {fileID: 21300000, guid: 643a041516e0d744dab22266d7f14ca6, type: 3}
+  cross2: {fileID: 21300002, guid: 643a041516e0d744dab22266d7f14ca6, type: 3}
+  box: {fileID: 21300000, guid: 48141cb9d522f7b49b57ca2903bfef1e, type: 3}
+  overUnit: 0
+  switchToAbility: 0
+  targetAbility: 0
+  curButton: {fileID: 0}
+  selectTint: {r: 0.27901387, g: 0.6226415, b: 0.33361, a: 1}
+  canvas: {fileID: 0}
+  lemmingsOutText: {fileID: 0}
+  lemmingsOut: 0
+  lemmingLeftText: {fileID: 0}

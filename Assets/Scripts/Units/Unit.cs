@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SA
+namespace Lemmings
 {
     public class Unit : MonoBehaviour
     {
@@ -82,7 +82,9 @@ namespace SA
             if (!isInit)
                 return;
             if (!move)
-                return;          
+                return;
+            if (anim == null)
+                return;
 
             ren.flipX = movingLeft;
             anim.SetBool("isUmbrella", isUmbrella);

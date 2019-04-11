@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace SA
+namespace Lemmings
 {
     public class UIButtons : MonoBehaviour
     {
