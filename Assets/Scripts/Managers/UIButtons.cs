@@ -16,9 +16,7 @@ namespace SA
 
         private void Update()
         {
-            textUtilisation.text = nUtilisation.ToString("");
-
-            
+            textUtilisation.text = nUtilisation.ToString(""); 
 
             if(nUtilisation <= 0)
             {

@@ -68,11 +68,13 @@ namespace SA
         public UIManager uIManager;
 
         public bool isMonster;
+        public GameManager gameManagerStart;
 
         public void Start()
         {
             if(isMonster)
             {
+                gameManager = gameManagerStart;
                 PlaceOnNode();
                 isInit = true;
                 curAbility = Ability.walker;
@@ -89,8 +91,15 @@ namespace SA
 
         void PlaceOnNode()
         {
-            curNode = gameManager.spawnNode;
-            transform.position = gameManager.spawnPosition;
+            if (!isMonster)
+            {
+                curNode = gameManager.spawnNode;
+                transform.position = gameManager.spawnPosition;
+            }
+            else if (isMonster)
+            {
+                curNode = gameManager.GetNodeFromWorldPos(transform.position);
+            }
         }
 
         public void Tick(float delta)

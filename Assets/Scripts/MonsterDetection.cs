@@ -10,7 +10,7 @@ public class MonsterDetection : MonoBehaviour {
     {
         if(collision.tag == "Lemmings" && !weapon.activeSelf)
         {
-            StartCoroutine(Attack(0.5f));
+            StartCoroutine(Attack(2f));
         }
     }
 
