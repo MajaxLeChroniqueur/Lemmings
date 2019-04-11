@@ -69,8 +69,11 @@ namespace SA
 
         public UIManager uIManager;
 
+        [Header("IA Monstre")]
         public bool isMonster;
         public GameManager gameManagerStart;
+        public UnitManager unitManager;
+        public bool isAttacking;
 
         public GameObject spriteMask;
 
@@ -78,12 +81,26 @@ namespace SA
         {
             if(isMonster)
             {
-                gameManager = gameManagerStart;
-                PlaceOnNode();
-                isInit = true;
-                curAbility = Ability.walker;
+                StartCoroutine(InitMonster());
             }
         }
+
+        IEnumerator InitMonster()
+        {
+            yield return new WaitForSeconds(0.5f);
+            gameManager = gameManagerStart;
+            PlaceOnNode();
+            isInit = true;
+            curAbility = Ability.walker;
+        }
+
+        /*private void Update()
+        {
+            if(isMonster)
+            {
+                Tick(unitManager.delta);
+            }
+        }*/
 
         public void Init(GameManager gm)
         {
@@ -103,11 +120,14 @@ namespace SA
             else if (isMonster)
             {
                 curNode = gameManager.GetNodeFromWorldPos(transform.position);
+                Debug.Log(curNode);
             }
         }
 
         public void Tick(float delta)
         {
+            Debug.Log(isMonster);
+            Debug.Log(curAbility);
             if (!isInit)
                 return;
             if (!move)
@@ -116,55 +136,58 @@ namespace SA
             ren.flipX = movingLeft;
             anim.SetBool("isUmbrella", isUmbrella);
 
-            switch (curAbility)
+            if (!isAttacking)
             {
-                case Ability.walker:
-                case Ability.umbrella:
-                    Walker(delta);
-                    break;
-                case Ability.stopper:
-                    Stopper();
-                    break;                          
-                case Ability.dig_down:
-                    DiggingDown(delta);
-                    break;
-                case Ability.dig_forward:
-                    DiggingForward(delta);
-                    break;
-                case Ability.dig_diagonale:
-                    DiggindDiagonal(delta);
-                    break;
-                case Ability.dead:
-                    break;
-                case Ability.builder:
-                    Builder(delta);
-                    break;
-                case Ability.filler:
-                    Filler(delta);
-                    //CheckCurrentNode();
-                    //CheckNodeBelow();
-                    break;
-                case Ability.explode:
-                    Exploder(delta);
-                    break;
-                case Ability.archer:
-                    Debug.Log("Test");
-                    archerCmpt += Time.deltaTime;
-                    if(archerCmpt>=5f)
-                    {
-                        archerCmpt = 0;
-                        archerView.SetActive(false);
-                        move = true;
-                        curAbility = Ability.walker;
-                    }
-                    break;
-                case Ability.climber:
-                    break;
-                case Ability.lighter:
-                    Lighter();
-                    break;
-                default:
-                    break;
+                switch (curAbility)
+                {
+                    case Ability.walker:
+                    case Ability.umbrella:
+                        Walker(delta);
+                        break;
+                    case Ability.stopper:
+                        Stopper();
+                        break;
+                    case Ability.dig_down:
+                        DiggingDown(delta);
+                        break;
+                    case Ability.dig_forward:
+                        DiggingForward(delta);
+                        break;
+                    case Ability.dig_diagonale:
+                        DiggindDiagonal(delta);
+                        break;
+                    case Ability.dead:
+                        break;
+                    case Ability.builder:
+                        Builder(delta);
+                        break;
+                    case Ability.filler:
+                        Filler(delta);
+                        //CheckCurrentNode();
+                        //CheckNodeBelow();
+                        break;
+                    case Ability.explode:
+                        Exploder(delta);
+                        break;
+                    case Ability.archer:
+                        Debug.Log("Test");
+                        archerCmpt += Time.deltaTime;
+                        if (archerCmpt >= 5f)
+                        {
+                            archerCmpt = 0;
+                            archerView.SetActive(false);
+                            move = true;
+                            curAbility = Ability.walker;
+                        }
+                        break;
+                    case Ability.climber:
+                        break;
+                    case Ability.lighter:
+                        Lighter();
+                        break;
+                    default:
+                        break;
+                }
             }
             Debug.Log(curAbility);
         }
@@ -964,7 +987,11 @@ namespace SA
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(collision.tag == "EnemyDamage")
+            if(collision.tag == "EnemyDamage" && !isMonster)
+            {
+                Die();
+            }
+            else if(collision.tag == "PlayerAttack" && isMonster)
             {
                 Die();
             }

@@ -15,6 +15,7 @@ namespace SA
         public GameObject unitPrefab;
         GameObject unitsParent;
         List<Unit> all_units = new List<Unit>();
+        public List<Unit> listEnnemies;
         GameManager gameManager;
 
         public bool changeSpeed;
@@ -67,6 +68,10 @@ namespace SA
                 for (int i = 0; i < all_units.Count; i++)
                 {
                     all_units[i].Tick(delta);
+                }
+                for(int j = 0; j<listEnnemies.Count; j++)
+                {
+                    listEnnemies[j].Tick(delta);
                 }
             }
         }
