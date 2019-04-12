@@ -9,8 +9,6 @@ public class MenuPanels : MonoBehaviour
     public GameObject victoryMenu;
     public GameObject pauseMenu;
 
-    public LemmingsOutScript outScript;
-
     // Update is called once per frame
     void Update()
     {
@@ -34,14 +32,14 @@ public class MenuPanels : MonoBehaviour
         }
     }
 
-    void Pause()
+    public void Pause()
     {
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
 
-    void Resume()
+    public void Resume()
     {
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
