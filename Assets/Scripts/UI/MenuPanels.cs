@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuPanels : MonoBehaviour
 {
@@ -52,4 +53,22 @@ public class MenuPanels : MonoBehaviour
         Time.timeScale = 0f;
     }
 
+    public void Restart()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+    }
+
+    public void LoadMenu()
+    {
+        Debug.Log("Menu called");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quitting game");
+        Application.Quit();
+    }
 }

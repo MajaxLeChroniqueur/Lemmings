@@ -19,12 +19,14 @@ namespace SA
         public UIButtons curButton;
         public Color selectTint;
         Color defColor;
-        public GameObject canvas;
+        public GameObject inGameCanvas;
+        public GameObject startCanvas;
 
         void Start()
         {
             Cursor.visible = false;
-            canvas.SetActive(true);
+            inGameCanvas.SetActive(true);
+            startCanvas.SetActive(false);
         }
 
         public void Tick()

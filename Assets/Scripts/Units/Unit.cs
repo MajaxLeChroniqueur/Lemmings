@@ -127,8 +127,8 @@ namespace SA
 
         public void Tick(float delta)
         {
-            Debug.Log(isMonster);
-            Debug.Log(curAbility);
+            //Debug.Log(isMonster);
+            //Debug.Log(curAbility);
             if (!isInit)
                 return;
             if (!move)
@@ -190,7 +190,7 @@ namespace SA
                         break;
                 }
             }
-            Debug.Log(curAbility);
+            //Debug.Log(curAbility);
         }
 
         public bool ChangeAbility(Ability a)
