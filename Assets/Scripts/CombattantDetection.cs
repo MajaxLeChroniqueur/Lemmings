@@ -11,7 +11,7 @@ namespace SA
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if(!unit.isAttacking)
+            if(!unit.isAttacking && collision.tag == "Enemy")
             {
                 StartCoroutine(Attack());
             }

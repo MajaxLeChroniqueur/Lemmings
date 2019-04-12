@@ -262,10 +262,11 @@ namespace SA
                         break;
                     case Ability.combattant:
                         curAbility = a;
-                        if(combattantView.activeSelf)
+                        if(!combattantView.activeSelf)
                         {
                             combattantView.SetActive(true);
                             curAbility = Ability.walker;
+                            Debug.Log("TestCombattant " + curAbility);
                         }
                         break;
                     case Ability.dead:

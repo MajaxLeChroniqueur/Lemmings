@@ -29,6 +29,50 @@ namespace SA
             //startCanvas.SetActive(false);
         }
 
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.A))
+            {
+                UseKeyButton(Ability.stopper);
+            }
+            else if (Input.GetKeyDown(KeyCode.Z))
+            {
+                UseKeyButton(Ability.umbrella);
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                UseKeyButton(Ability.dig_forward);
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                UseKeyButton(Ability.dig_down);
+            }
+            else if (Input.GetKeyDown(KeyCode.T))
+            {
+                UseKeyButton(Ability.builder);
+            }
+            else if (Input.GetKeyDown(KeyCode.Y))
+            {
+                UseKeyButton(Ability.archer);
+            }
+            else if (Input.GetKeyDown(KeyCode.U))
+            {
+                UseKeyButton(Ability.combattant);
+            }
+            else if (Input.GetKeyDown(KeyCode.I))
+            {
+                UseKeyButton(Ability.dig_diagonale);
+            }
+            else if (Input.GetKeyDown(KeyCode.O))
+            {
+                UseKeyButton(Ability.lighter);
+            }
+            else if (Input.GetKeyDown(KeyCode.P))
+            {
+                UseKeyButton(Ability.explode);
+            }
+        }
+
         public void Tick()
         {
             mouseTrans.transform.position = Input.mousePosition;
@@ -63,6 +107,11 @@ namespace SA
                 Debug.Log("test2");
                 targetAbility = curButton.ability;
             }
+        }
+
+        private void UseKeyButton(Ability a)
+        {
+            targetAbility = a;
         }
 
         public static UIManager singleton;
