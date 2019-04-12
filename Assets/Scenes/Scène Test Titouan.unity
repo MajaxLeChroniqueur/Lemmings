@@ -6587,7 +6587,7 @@ PrefabInstance:
         type: 3}
       propertyPath: anim
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1094266166623211}
     - target: {fileID: 114946991236517708, guid: 79f85e766e869b54a8805e4bf785855a,
         type: 3}
       propertyPath: gameManagerStart
@@ -8049,3 +8049,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140939865}
   m_CullTransparentMesh: 0
+--- !u!1 &1094266166623210 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1094266166623210, guid: 79f85e766e869b54a8805e4bf785855a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1704951811}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1094266166623211
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1094266166623210}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 306f05b498068114f8877a758bac4fc9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &1178348560908172 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1178348560908172, guid: 007bed4d807d5e14ca05e85f40d5619e,
+    type: 3}
+  m_PrefabInstance: {fileID: 290794649}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1178348560908173
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1178348560908172}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 96ab30375d9c7e948a4b773cd32ad040, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
