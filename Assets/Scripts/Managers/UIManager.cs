@@ -34,13 +34,18 @@ namespace Lemmings
             Cursor.visible = false;
             canvas.SetActive(true);
 
-            lemmingsOut = 0;
+            lemmingsOut = 0;            
         }
 
         private void Update()
         {
             LemmingsOut();
             LemmingsLeft();
+            
+            if (curButton.nUtilisation < 0)
+            {
+                targetAbility = Ability.walker;
+            }
         }
 
         void LemmingsOut()

@@ -10,17 +10,32 @@ namespace Lemmings
         public Ability ability;
         public Image buttonImg;
         public Text textUtilisation;
-        public int nUtilisation;        
+        public int nUtilisation;
+
+        public Color color = Color.gray;
+
+        Button btn;
+
+        bool canUse = true;
+
+        private void Start()
+        {
+            btn = gameObject.GetComponent<Button>();
+        }
 
         private void Update()
         {
-            textUtilisation.text = nUtilisation.ToString("");
-
-            
-
-            if(nUtilisation <= 0)
+            if (canUse == true)
             {
-                gameObject.SetActive(false);
+                textUtilisation.text = nUtilisation.ToString("");
+            }
+
+            if (nUtilisation <= 0)
+            {
+                btn.interactable = false;
+                buttonImg.color = color;
+
+                canUse = false;
             }            
         }
 
@@ -32,6 +47,16 @@ namespace Lemmings
         public void Minus()
         {
             nUtilisation -= 1;
+        }
+
+        public void ExplodeAll()
+        {
+            UnitManager unitManager = UnitManager.singleton;
+
+            foreach (Unit unit in unitManager.all_units)
+            {
+                unit.curAbility = Ability.explode;
+            }
         }
     }
 }

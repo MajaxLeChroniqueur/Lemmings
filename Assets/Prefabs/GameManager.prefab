@@ -54,12 +54,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80aa39ce72b58e4ab3da5393d6bef3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxUnits: 50
+  maxUnits: 25
   timeScale: 1
   interval: 2
   unitPrefab: {fileID: 1774281891001704, guid: 78929096c41a80d4eb29dba1c963a3ef, type: 2}
+  all_units: []
   changeSpeed: 0
   lemmingsLeft: 0
+  nextB: {fileID: 0}
 --- !u!114 &114485573796507168
 MonoBehaviour:
   m_ObjectHideFlags: 1

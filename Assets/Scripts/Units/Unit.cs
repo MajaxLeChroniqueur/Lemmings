@@ -63,6 +63,8 @@ namespace Lemmings
 
         public UIManager uIManager;
 
+        public UnitManager unitManager;
+
         public void Init(GameManager gm)
         {
             gameManager = gm;
@@ -118,6 +120,9 @@ namespace Lemmings
                     Exploder(delta);
                     break;
                 case Ability.climber:
+                    break;
+                case Ability.explode_all:
+                    ExplodeAll(delta);
                     break;
                 default:
                     break;
@@ -206,6 +211,9 @@ namespace Lemmings
                     break;
                 case Ability.climber:
                     isclimb = true;
+                    break;
+                case Ability.explode_all:
+                    curAbility = a;                    
                     break;
                 default:
                     break;
@@ -548,6 +556,18 @@ namespace Lemmings
                 }
 
                 gameManager.AddCanidateNodesToClear(canidates);
+                gameObject.SetActive(false);
+            }
+        }
+
+        public void ExplodeAll(float delta)
+        {
+            unitManager = UnitManager.singleton;
+
+            foreach(Unit unit in unitManager.all_units)
+            {
+                curAbility = Ability.explode;
+                unit.anim.Play("dead");
             }
         }
 

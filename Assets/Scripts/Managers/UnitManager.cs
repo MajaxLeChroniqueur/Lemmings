@@ -14,12 +14,14 @@ namespace Lemmings
         bool isAcc;
         public GameObject unitPrefab;
         GameObject unitsParent;
-        List<Unit> all_units = new List<Unit>();
+        public List<Unit> all_units = new List<Unit>();
         GameManager gameManager;
 
         public bool changeSpeed;
 
         [HideInInspector] public float lemmingsLeft;
+
+        public GameObject nextB;
 
         public static UnitManager singleton;
         void Awake()
@@ -32,6 +34,8 @@ namespace Lemmings
             unitsParent = new GameObject();
             unitsParent.name = "Units Parents";
             gameManager = GameManager.singleton;
+
+            nextB.SetActive(false);
 
             isAcc = false;
         }
@@ -63,6 +67,11 @@ namespace Lemmings
             }
 
             lemmingsLeft = maxUnits - all_units.Count;
+
+            if (lemmingsLeft <= 0)
+            {
+                nextB.SetActive(true);
+            }
         }
 
         public void MoreBoutton()
@@ -126,10 +135,16 @@ namespace Lemmings
 
             return r;
         }
-    }
+
+        public void NormalSpeed(int speed)
+        {
+            timeScale = 1;
+            timeScale = timeScale * speed;
+        }
+    }    
 
     public enum Ability
     {
-        walker, stopper, umbrella, dig_forward, dig_down, explode, dead, filler, builder, climber,
+        walker, stopper, umbrella, dig_forward, dig_down, explode, dead, filler, builder, climber, explode_all,
     }
 }

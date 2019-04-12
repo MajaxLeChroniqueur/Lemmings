@@ -201,6 +201,7 @@ MonoBehaviour:
   ren: {fileID: 212674655547203746}
   anim: {fileID: 95378371983775008}
   uIManager: {fileID: 0}
+  unitManager: {fileID: 0}
 --- !u!212 &212001598873457468
 SpriteRenderer:
   m_ObjectHideFlags: 1
