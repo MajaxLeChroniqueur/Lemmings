@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SA
 {
@@ -11,6 +12,7 @@ namespace SA
         public float originalTimeScale;
         public float delta;
         public float interval = 1;
+        public float aliveUnits;
         float timer;
         public GameObject unitPrefab;
         GameObject unitsParent;
@@ -34,6 +36,7 @@ namespace SA
 
         void Start()
         {
+            aliveUnits = maxUnits;
             originalTimeScale = timeScale;
             unitsParent = new GameObject();
             unitsParent.name = "Units Parents";
@@ -44,6 +47,10 @@ namespace SA
 
         void Update()
         {
+            if(aliveUnits <= 0)
+            {
+                SceneManager.LoadScene("FinishScene");
+            }
             delta = Time.deltaTime;
             delta *= timeScale;
 

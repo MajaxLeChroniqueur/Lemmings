@@ -993,6 +993,7 @@ namespace SA
         {
             if (isDead == false)
             {
+                unitManager.aliveUnits--;
                 ChangeAbility(Ability.dead);
                 anim.Play("dead");
                 isDead = true;
