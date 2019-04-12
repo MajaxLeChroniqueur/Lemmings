@@ -181,6 +181,7 @@ namespace SA
                         }
                         break;
                     case Ability.combattant:
+                        Debug.Log("Test");
                         break;
                     case Ability.climber:
                         break;
@@ -995,6 +996,13 @@ namespace SA
                 ChangeAbility(Ability.dead);
                 anim.Play("dead");
                 isDead = true;
+                if(isMonster)
+                {
+                    foreach (Transform child in gameObject.transform)
+                    {
+                        Destroy(child.gameObject);
+                    }
+                }
             }
         }
 
