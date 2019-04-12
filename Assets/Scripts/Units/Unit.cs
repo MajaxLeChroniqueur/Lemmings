@@ -67,6 +67,7 @@ namespace SA
         public bool isDead;
 
         public GameObject archerView;
+        public GameObject combattantView;
 
         public UIManager uIManager;
 
@@ -121,7 +122,6 @@ namespace SA
             else if (isMonster)
             {
                 curNode = gameManager.GetNodeFromWorldPos(transform.position);
-                Debug.Log(curNode);
             }
         }
 
@@ -171,7 +171,6 @@ namespace SA
                         Exploder(delta);
                         break;
                     case Ability.archer:
-                        Debug.Log("Test");
                         archerCmpt += Time.deltaTime;
                         if (archerCmpt >= 5f)
                         {
@@ -180,6 +179,8 @@ namespace SA
                             move = true;
                             curAbility = Ability.walker;
                         }
+                        break;
+                    case Ability.combattant:
                         break;
                     case Ability.climber:
                         break;
@@ -199,6 +200,7 @@ namespace SA
 
             if (!isMonster)
             {
+                Debug.Log("Test ChangementAbility : " + a);
                 switch (a)
                 {
                     case Ability.walker:
@@ -256,6 +258,14 @@ namespace SA
                         if (!archerView.activeSelf)
                         {
                             archerView.SetActive(true);
+                        }
+                        break;
+                    case Ability.combattant:
+                        curAbility = a;
+                        if(combattantView.activeSelf)
+                        {
+                            combattantView.SetActive(true);
+                            curAbility = Ability.walker;
                         }
                         break;
                     case Ability.dead:

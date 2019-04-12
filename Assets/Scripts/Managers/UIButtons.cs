@@ -17,7 +17,8 @@ namespace SA
 
         private void Update()
         {
-            textUtilisation.text = nUtilisation.ToString(""); 
+            if(textUtilisation != null)
+                textUtilisation.text = nUtilisation.ToString(""); 
 
             if(nUtilisation <= 0)
             {
@@ -27,6 +28,7 @@ namespace SA
 
         public void Press()
         {
+            Debug.Log("Test4");
             UIManager.singleton.PressAbilityButton(this);
         }
 

@@ -19,14 +19,14 @@ namespace SA
         public UIButtons curButton;
         public Color selectTint;
         Color defColor;
-        public GameObject inGameCanvas;
-        public GameObject startCanvas;
+        //public GameObject inGameCanvas;
+        //public GameObject startCanvas;
 
         void Start()
         {
             Cursor.visible = false;
-            inGameCanvas.SetActive(true);
-            startCanvas.SetActive(false);
+            //inGameCanvas.SetActive(true);
+            //startCanvas.SetActive(false);
         }
 
         public void Tick()
@@ -38,7 +38,7 @@ namespace SA
                 mouse.sprite = box;
                 if (Input.GetMouseButtonDown(0))
                 {
-                    curButton.Minus();
+                    //curButton.Minus();
                 }
             }
             else
@@ -53,15 +53,16 @@ namespace SA
             {
                 curButton.buttonImg.color = defColor;
             }
+            Debug.Log("Test");
 
             curButton = b;
             defColor = curButton.buttonImg.color;
             curButton.buttonImg.color = selectTint;
             if (curButton.ability != Ability.fast_forward)
             {
+                Debug.Log("test2");
                 targetAbility = curButton.ability;
             }
-
         }
 
         public static UIManager singleton;

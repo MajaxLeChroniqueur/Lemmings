@@ -9,7 +9,7 @@ public class MainMenu : MonoBehaviour
     public void Play()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Scène Test Sam");
+        SceneManager.LoadScene("Scène Test Titouan");
     }
 
     public void QuitGame()

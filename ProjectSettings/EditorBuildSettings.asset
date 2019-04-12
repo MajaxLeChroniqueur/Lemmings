@@ -11,7 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 96484f6612b999947b5142f0e9dba8dc
-  - enabled: 1
+  - enabled: 0
     path: "Assets/Scenes/Sc\xE8ne Test Sam.unity"
     guid: c61f29a0aab2a9a45b20317f611ba6b1
+  - enabled: 1
+    path: "Assets/Scenes/Sc\xE8ne Test Titouan.unity"
+    guid: 4f674a408a597814db9de9e50d16a7de
   m_configObjects: {}
