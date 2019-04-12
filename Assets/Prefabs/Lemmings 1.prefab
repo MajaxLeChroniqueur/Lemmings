@@ -88,7 +88,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4373463866319552}
   - component: {fileID: 212645446210074550}
-  - component: {fileID: 95225733655801818}
   m_Layer: 0
   m_Name: Sprite renderer
   m_TagString: Untagged
@@ -104,7 +103,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1420705938235224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.01, y: -0.01, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4512108413020404}
@@ -150,8 +149,8 @@ SpriteRenderer:
   m_SortingLayerID: -167394233
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300014, guid: a7b0a7ac8e3cffd4db1959aad85e56fe, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 9d83d7048213f474c84b71b64e02df9a, type: 3}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -161,25 +160,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &95225733655801818
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1420705938235224}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7fffadac94218a945aeb49e0a46e8810, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1456780683814560
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,12 +169,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4900675784709144}
-  - component: {fileID: 114360863829124498}
   - component: {fileID: 61766304351543882}
   - component: {fileID: 50689247894203758}
+  - component: {fileID: 1047486472}
   m_Layer: 0
   m_Name: Lemmings 1
-  m_TagString: Lemmings
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -217,51 +197,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114360863829124498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1456780683814560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d0af6b29cc856f46a6737846ad7aa8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  digDownFrames: 35
-  move: 1
-  onGround: 0
-  isUmbrella: 0
-  isDigForward: 0
-  curAbility: 0
-  lerpSpeed: 0.2
-  fallSpeed: 5
-  umbrellaSpeed: 0.4
-  dig_down: 0.05
-  airDeathFrames: 80
-  digForwardFrames: 35
-  build_Time: 0.9
-  build_Speed: 0.025
-  buildAmount: 25
-  pixelsOut: 0
-  maxPixels: 250
-  fillStart: 0.6
-  explodeTimer: 1.45
-  explodeRadius: 6
-  doesMakeLight: 0
-  isclimb: 0
-  ren: {fileID: 212645446210074550}
-  anim: {fileID: 95225733655801818}
-  isDead: 0
-  archerView: {fileID: 1616592970009146}
-  combattantView: {fileID: 8119129091957781121}
-  uIManager: {fileID: 0}
-  isMonster: 0
-  gameManagerStart: {fileID: 0}
-  unitManager: {fileID: 0}
-  isAttacking: 0
-  spriteMask: {fileID: 1370926777449852}
 --- !u!61 &61766304351543882
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -309,6 +244,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1047486472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456780683814560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e3a8eb2e194e3418efaf493e4dad65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  light: {fileID: 1889846161544398}
 --- !u!1 &1594936421526584
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4739516950632840
 Transform:
   m_ObjectHideFlags: 0
@@ -496,8 +444,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889846161544398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 0.04, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 4373463866319552}
   m_RootOrder: 1
@@ -689,4 +637,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 3252770625766025063}
-  unit: {fileID: 114360863829124498}
+  unit: {fileID: 114360863829124498, guid: 9e0ae001d1b0e134aac8ac878bfd941f, type: 3}
